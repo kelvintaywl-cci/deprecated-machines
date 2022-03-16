@@ -2,10 +2,26 @@ version: 2.1
 
 jobs:
   build:
+    parameters:
+      img:
+        type: string
     machine:
-      image: circleci/classic:201710-01
+      image: << parameters.img >>
+    resource_class: medium
     steps:
-      - checkout
       - run: |
-          which node
-          which npm
+          docker info
+      - run: |
+          docker-compose version
+      - run: |
+          uname -r
+ 
+ workflows:
+   main:
+     jobs:
+       - build:
+           matrix:
+             parameters:
+               - "circleci/classic:201710-01"
+               - "ubuntu-2004:202111-02"
+               - "ubuntu-2004:202201-02"
