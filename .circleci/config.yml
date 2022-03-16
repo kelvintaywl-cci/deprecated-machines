@@ -22,6 +22,7 @@ jobs:
        - build:
            matrix:
              parameters:
-               - "circleci/classic:201710-01"
-               - "ubuntu-2004:202111-02"
-               - "ubuntu-2004:202201-02"
+               img:
+                 - "circleci/classic:201710-01"
+                 - "ubuntu-2004:202111-02"
+                 - "ubuntu-2004:202201-02"
