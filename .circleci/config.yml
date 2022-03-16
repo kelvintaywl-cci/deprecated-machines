@@ -2,6 +2,10 @@ version: 2.1
 
 jobs:
   build:
-    machine: true
+    machine:
+      image: circleci/classic:201710-01
     steps:
       - checkout
+      - run: |
+          which node
+          which npm
