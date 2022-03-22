@@ -23,7 +23,7 @@ workflows:
           matrix:
             parameters:
               img:
-                - "ubuntu-2204:current"
+                - "ubuntu-2204:canary"
 #                 - "circleci/classic:201710-01"
 #                 - "ubuntu-2004:202111-02"
 #                 - "ubuntu-2004:202201-02"
