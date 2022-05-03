@@ -9,7 +9,8 @@ jobs:
           command: |
             wget https://github.com/mikefarah/yq/releases/download/v4.25.1/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 ~/bin/yq
             pwd
-            ls -laH ~
+            echo "---------------"
+            ls -laH $HOME/bin
             
             PATH=$HOME/bin:$PATH
             echo "export PATH=$PATH" >> $BASH_ENV
