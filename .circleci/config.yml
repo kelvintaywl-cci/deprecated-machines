@@ -5,6 +5,7 @@ jobs:
     machine: true
     steps:
       - run: |
+          docker version
           docker info
       - run: |
           docker-compose version
@@ -35,6 +36,7 @@ jobs:
     resource_class: medium
     steps:
       - run: |
+          docker version
           docker info
       - run: |
           docker-compose version
