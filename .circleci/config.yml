@@ -9,6 +9,7 @@ jobs:
       - run: |
           docker-compose version
       - run: |
+          lsb_release -a
           uname -r
   test-path:
     machine:
@@ -38,6 +39,7 @@ jobs:
       - run: |
           docker-compose version
       - run: |
+          lsb_release -a
           uname -r
  
 workflows:
