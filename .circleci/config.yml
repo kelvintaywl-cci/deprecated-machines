@@ -1,6 +1,15 @@
 version: 2.1
 
 jobs:
+  default:
+    machine: true
+    steps:
+      - run: |
+          docker info
+      - run: |
+          docker-compose version
+      - run: |
+          uname -r
   test-path:
     machine:
       image: ubuntu-2004:202201-02
@@ -32,16 +41,17 @@ jobs:
           uname -r
  
 workflows:
-  main:
+  third-brownout:
     jobs:
-      - test-path
+      - default
       - build:
           matrix:
             parameters:
               img:
                 # try again
                 - "ubuntu-2204:2022.04.1"
-#                 - "circleci/classic:201710-01"
+                - "ubuntu-1604:201903-01" # should fail
+                - "circleci/classic:201710-01" # should fail
 #                 - "ubuntu-2004:202111-02"
 #                 - "ubuntu-2004:202201-02"
 
