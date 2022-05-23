@@ -5,7 +5,7 @@ commands:
     steps:
       - run: |
           ssh -V
-          cat ~/.ssh/config
+          cat /home/circleci/.ssh/config
       - run: |
           docker version
           docker info
