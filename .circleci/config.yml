@@ -5,6 +5,7 @@ commands:
     steps:
       - run: |
           ssh -V
+          cat ~/.ssh/config
       - run: |
           docker version
           docker info
