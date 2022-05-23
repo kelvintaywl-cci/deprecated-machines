@@ -9,6 +9,8 @@ commands:
       - run: |
           ssh -V
           cat /home/circleci/.ssh/config
+          # check SSH config validity
+          sshd -t
       - run: |
           docker version
           docker info
