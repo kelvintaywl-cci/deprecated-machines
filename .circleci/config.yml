@@ -17,6 +17,7 @@ commands:
       - run: |
           which ssh
           ssh -V
+          ls /home/circleci/.ssh/
   inspect:
     steps:
       - add_ssh_keys:
