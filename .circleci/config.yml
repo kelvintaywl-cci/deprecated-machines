@@ -9,10 +9,10 @@ commands:
             sudo apt-get update
             mkdir ~/tempdownload; 
             cd ~/tempdownload; 
-            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz; 
-            tar zxvf openssh-8.1p1.tar.gz; 
-            cd openssh-8.1p1 && ./configure && make && sudo make install
-            echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
+            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.9p1.tar.gz; 
+            tar zxvf openssh-8.9p1.tar.gz; 
+            cd openssh-8.9p1 && ./configure && make && sudo make install
+            # echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
       - run: |
           which ssh
           ssh -V
