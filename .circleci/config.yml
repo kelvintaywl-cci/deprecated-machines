@@ -3,10 +3,18 @@ version: 2.1
 commands:
   upgrade_ssh:
     steps:
+      - run:
+          name: Install OpenSSH 8.9
+          command: |
+            sudo apt-get update
+            mkdir ~/tempdownload; 
+            cd ~/tempdownload; 
+            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz; 
+            tar zxvf openssh-8.1p1.tar.gz; 
+            cd openssh-8.1p1 && ./configure && make && sudo make install
+            echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
       - run: |
-          sudo apt-get update
-          sudo apt-get install -y openssh-client
-      - run: |
+          which ssh
           ssh -V
   inspect:
     steps:
@@ -61,7 +69,7 @@ jobs:
 workflows:
   third-brownout:
     jobs:
-      - default
+#       - default
       - build:
           matrix:
             parameters:
