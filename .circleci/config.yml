@@ -25,7 +25,12 @@ commands:
             - "b3:1e:03:cf:29:8b:36:a6:87:09:d9:a0:62:c6:97:fd"
       - run: |
           ssh -V
+          ls /home/circleci/.ssh/
+      - run: |
           cat /home/circleci/.ssh/config
+          sed 's/^IdentitiesOnly no$/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
+          cat /home/circleci/.ssh/config
+      - run: |
           # check SSH config validity
           sshd -t
       - run: |
