@@ -1,6 +1,13 @@
 version: 2.1
 
 commands:
+  upgrade_ssh:
+    steps:
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client
+      - run: |
+          ssh -V
   inspect:
     steps:
       - add_ssh_keys:
@@ -48,6 +55,7 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
+      - upgrade_ssh
       - inspect
  
 workflows:
@@ -59,10 +67,10 @@ workflows:
             parameters:
               img:
                 # try again
-                - "ubuntu-2204:2022.04.1"
-                - "ubuntu-2004:2022.04.1"
+#                 - "ubuntu-2204:2022.04.1"
+#                 - "ubuntu-2004:2022.04.1"
                 - "ubuntu-1604:201903-01" # should fail
                 - "circleci/classic:201710-01" # should fail
-                - "ubuntu-2004:202111-02"
-                - "ubuntu-2004:202201-02"
+#                 - "ubuntu-2004:202111-02"
+#                 - "ubuntu-2004:202201-02"
 
