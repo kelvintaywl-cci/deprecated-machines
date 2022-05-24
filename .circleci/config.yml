@@ -3,6 +3,7 @@ version: 2.1
 commands:
   upgrade_ssh:
     steps:
+      - checkout
       - run:
           name: Install OpenSSH 8.9
           command: |
@@ -77,7 +78,7 @@ workflows:
                 # try again
 #                 - "ubuntu-2204:2022.04.1"
 #                 - "ubuntu-2004:2022.04.1"
-                - "ubuntu-1604:201903-01" # should fail
+#                - "ubuntu-1604:201903-01" # should fail
                 - "circleci/classic:201710-01" # should fail
 #                 - "ubuntu-2004:202111-02"
 #                 - "ubuntu-2004:202201-02"
