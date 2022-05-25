@@ -2,6 +2,11 @@ version: 2.1
 
 commands:
   upgrade_ssh:
+    parameters:
+      version:
+        type: string
+        default: '8.9p1'
+        description: See https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/
     steps:
       - checkout
       - run:
@@ -10,10 +15,10 @@ commands:
             sudo apt-get update
             mkdir ~/tempdownload; 
             cd ~/tempdownload; 
-            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.9p1.tar.gz; 
-            tar zxvf openssh-8.9p1.tar.gz; 
-            cd openssh-8.9p1 && ./configure && make && sudo make install
-            # echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
+            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-<< parameters.version >>.tar.gz; 
+            tar zxvf openssh-<< parameters.version >>.tar.gz; 
+            cd openssh-<< parameters.version >> && ./configure && make && sudo make install
+            # echo "export PATH='~/tempdownload/openssh-<< parameters.version >>:$PATH'" > $BASH_ENV
       - run: |
           which ssh
           ssh -V
@@ -28,21 +33,21 @@ commands:
           ls /home/circleci/.ssh/
       - run: |
           cat /home/circleci/.ssh/config
-          sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
+          # sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
           
-          sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
-          cat /home/circleci/.ssh/config
+          # sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
+          # cat /home/circleci/.ssh/config
       - run: |
           # check SSH config validity
           sshd -t
-      - run: |
-          docker version
-          docker info
-      - run: |
-          docker-compose version
-      - run: |
-          lsb_release -a
-          uname -r
+#       - run: |
+#           docker version
+#           docker info
+#       - run: |
+#           docker-compose version
+#       - run: |
+#           lsb_release -a
+#           uname -r
 
 jobs:
   default:
@@ -68,11 +73,17 @@ jobs:
     parameters:
       img:
         type: string
+        default: circleci/classic:201710-01
+      ssh-version:
+        type: string
+        default: '8.9p1'
+        description: See https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/
     machine:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - upgrade_ssh
+      - upgrade_ssh:
+          version: << parameters.ssh-version >>
       - inspect
  
 workflows:
@@ -82,12 +93,23 @@ workflows:
       - build:
           matrix:
             parameters:
-              img:
-                # try again
-#                 - "ubuntu-2204:2022.04.1"
-#                 - "ubuntu-2004:2022.04.1"
-#                - "ubuntu-1604:201903-01" # should fail
-                - "circleci/classic:201710-01" # should fail
-#                 - "ubuntu-2004:202111-02"
-#                 - "ubuntu-2004:202201-02"
-
+#               img:
+#                 # try again
+# #                 - "ubuntu-2204:2022.04.1"
+# #                 - "ubuntu-2004:2022.04.1"
+# #                - "ubuntu-1604:201903-01" # should fail
+#                 - "circleci/classic:201710-01" # should fail
+# #                 - "ubuntu-2004:202111-02"
+# #                 - "ubuntu-2004:202201-02"
+              ssh-version:
+                - "7.2p1"
+                - "7.3p1"
+                - "7.4p1"
+                - "7.5p1"
+                - "7.6p1"
+                - "7.7p1"
+                - "7.8p1"
+                - "7.9p1"
+                - "8.0p1"
+                - "8.1p1"
+                - "8.2p1"
