@@ -20,21 +20,21 @@ commands:
           ls /home/circleci/.ssh/
   inspect:
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "b3:1e:03:cf:29:8b:36:a6:87:09:d9:a0:62:c6:97:fd"
-      - run: |
-          ssh -V
-          ls /home/circleci/.ssh/
-      - run: |
-          cat /home/circleci/.ssh/config
-          sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
+#       - add_ssh_keys:
+#           fingerprints:
+#             - "b3:1e:03:cf:29:8b:36:a6:87:09:d9:a0:62:c6:97:fd"
+#       - run: |
+#           ssh -V
+#           ls /home/circleci/.ssh/
+#       - run: |
+#           cat /home/circleci/.ssh/config
+#           sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
           
-          sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
-          cat /home/circleci/.ssh/config
-      - run: |
-          # check SSH config validity
-          sshd -t
+#           sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
+#           cat /home/circleci/.ssh/config
+#       - run: |
+#           # check SSH config validity
+#           sshd -t
       - run: |
           docker version
           docker info
@@ -72,22 +72,21 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - upgrade_ssh
       - inspect
  
 workflows:
   third-brownout:
     jobs:
-#       - default
+      - default
       - build:
           matrix:
             parameters:
               img:
                 # try again
-#                 - "ubuntu-2204:2022.04.1"
-#                 - "ubuntu-2004:2022.04.1"
-#                - "ubuntu-1604:201903-01" # should fail
+                - "ubuntu-2204:2022.04.1"
+                - "ubuntu-2004:2022.04.1"
+                - "ubuntu-1604:201903-01" # should fail
                 - "circleci/classic:201710-01" # should fail
-#                 - "ubuntu-2004:202111-02"
-#                 - "ubuntu-2004:202201-02"
+                - "ubuntu-2004:202111-02"
+                - "ubuntu-2004:202201-02"
 
