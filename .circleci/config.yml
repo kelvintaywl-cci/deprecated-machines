@@ -51,7 +51,7 @@ jobs:
       - inspect
   test-curl:
     machine:
-      image: ubuntu-2004:2022.04.1
+      image: ubuntu-2204:2022.04.1
     steps:
       - run: |
           curl --version
