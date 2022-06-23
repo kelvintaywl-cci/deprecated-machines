@@ -71,9 +71,10 @@ jobs:
     machine:
       image: ubuntu-2204:2022.04.1
     steps:
-      - run: echo hello
-        environment:
-          PREFIX: hello
+      - run:
+          command: echo hello
+          environment:
+            PREFIX: hello
   job-env:
     machine:
       image: ubuntu-2204:2022.04.1
