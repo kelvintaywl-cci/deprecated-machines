@@ -1,23 +1,6 @@
 version: 2.1
 
 commands:
-  upgrade_ssh:
-    steps:
-      - checkout
-      - run:
-          name: Install OpenSSH 8.9
-          command: |
-            sudo apt-get update
-            mkdir ~/tempdownload; 
-            cd ~/tempdownload; 
-            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.9p1.tar.gz; 
-            tar zxvf openssh-8.9p1.tar.gz; 
-            cd openssh-8.9p1 && ./configure && make && sudo make install
-            # echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
-      - run: |
-          which ssh
-          ssh -V
-          ls /home/circleci/.ssh/
   node-inspect:
     steps:
 #       - add_ssh_keys:
@@ -41,25 +24,6 @@ commands:
           which npm && npm --version
 
 jobs:
-  default:
-    machine: true
-    steps:
-      - inspect
-  test-path:
-    machine:
-      image: ubuntu-2004:202201-02
-    steps:
-      - run:
-          command: |
-            wget https://github.com/mikefarah/yq/releases/download/v4.25.1/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 ~/bin/yq
-            pwd
-            echo "---------------"
-            ls -laH $HOME/bin
-            
-            PATH=$HOME/bin:$PATH
-            echo "export PATH=$PATH" >> $BASH_ENV
-      - run:
-          command: printenv PATH
   node:
     parameters:
       img:
@@ -73,7 +37,6 @@ jobs:
 workflows:
   third-brownout:
     jobs:
-      - default
       - node:
           matrix:
             parameters:
