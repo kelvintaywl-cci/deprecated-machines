@@ -1,12 +1,20 @@
 version: 2.1
 
 commands:
-  check-gcc:
+  check-build-essentials:
     steps:
       - run:
           name: check GCC version
           command: |
             gcc --version
+      - run:
+          name: check G++
+          command: |
+            g++ --version
+      - run:
+          name: check LDD version
+          command: |
+            ldd --version
   upgrade_ssh:
     steps:
       - checkout
@@ -78,7 +86,7 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - check-gcc
+      - check-build-essentials
  
 workflows:
   third-brownout:
