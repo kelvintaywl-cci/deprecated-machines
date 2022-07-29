@@ -89,9 +89,8 @@ jobs:
       - check-build-essentials
  
 workflows:
-  third-brownout:
+  inspect:
     jobs:
-      - default
       - build:
           matrix:
             parameters:
