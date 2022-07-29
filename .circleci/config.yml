@@ -1,6 +1,12 @@
 version: 2.1
 
 commands:
+  check-gcc:
+    steps:
+      - run:
+          name: check GCC version
+          command: |
+            gcc --version
   upgrade_ssh:
     steps:
       - checkout
@@ -72,7 +78,7 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - inspect
+      - check-gcc
  
 workflows:
   third-brownout:
@@ -82,11 +88,12 @@ workflows:
           matrix:
             parameters:
               img:
-                # try again
-                - "ubuntu-2204:2022.04.1"
-                - "ubuntu-2004:2022.04.1"
-                - "ubuntu-1604:201903-01" # should fail
-                - "circleci/classic:201710-01" # should fail
-                - "ubuntu-2004:202111-02"
                 - "ubuntu-2004:202201-02"
+                - "ubuntu-2004:202201-01"
+                - "ubuntu-2004:202111-02"
+                - "ubuntu-2004:202111-01"
+                - "ubuntu-2004:202107-02"
+                - "ubuntu-2004:202104-01"
+                - "ubuntu-2004:202101-01"
+                - "ubuntu-2004:202010-01"
 
