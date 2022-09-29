@@ -18,9 +18,8 @@ jobs:
       - install-openvpn
  
 workflows:
-  third-brownout:
+  vpn:
     jobs:
-      - default
       - build:
           matrix:
             parameters:
