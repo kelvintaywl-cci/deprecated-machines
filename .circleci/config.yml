@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  install-open-vpn:
+  install-openvpn:
     steps:
       - run: |
           sudo apt-get install openvpn openvpn-systemd-resolved
