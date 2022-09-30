@@ -4,11 +4,11 @@ commands:
   install-openvpn:
     steps:
       - run: |
-          sudo apt-get install openvpn
+          sudo apt-get -y install openvpn
       - run: |
           sudo apt-get -y update
       - run: |
-          sudo apt-get install openvpn-systemd-resolved
+          sudo apt-get -y install openvpn-systemd-resolved
 
 jobs:
   build:
