@@ -6,7 +6,8 @@ commands:
       - run: |
           # recommended so that we update the package lists
           sudo apt-get update
-          sudo apt-get -y install openvpn openvpn-systemd-resolved
+          sudo apt-get -y install openvpn
+          sudo apt-get -y install openvpn-systemd-resolved
 
 jobs:
   build:
