@@ -6,9 +6,9 @@ jobs:
       img:
         type: string
         decription: Machine image to use
-       set-envvar:
-         type: boolean
-         default: false
+      set-envvar:
+        type: boolean
+        default: false
     machine:
       image: << parameters.img >>
     resource_class: medium
