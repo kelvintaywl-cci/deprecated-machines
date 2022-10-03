@@ -2,10 +2,51 @@ version: 2.1
 
 jobs:
   build:
+    parameters:
+      img:
+        type: string
+        decription: Machine image to use
+       set-envvar:
+         type: boolean
+         default: false
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: << parameters.img >>
+    resource_class: medium
     steps:
-      - run: printenv DEBIAN_FRONTEND
       - run: |
           sudo apt-get update
-          sudo apt-get install -y openvpn openvpn-systemd-resolved
+      - when:
+          condition: << parameters.set-envvar >>
+          steps:
+            - run: sudo DEBIAN_FRONTEND=noninteractive  apt-get install -y openvpn openvpn-systemd-resolved
+      - unless:
+          condition: << parameters.set-envvar >>
+          steps:
+            - run: sudo apt-get install -y openvpn openvpn-systemd-resolved
+workflows:
+  ubuntu-2004:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2004:2022.07.1
+                - ubuntu-2004:2022.04.2
+  ubuntu-2204:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2204:2022.07.1
+                - ubuntu-2204:2022.04.2
+  ubuntu-2204-set-envvar:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2204:2022.07.1
+                - ubuntu-2204:2022.04.2
+              set-envvar:
+                - true
