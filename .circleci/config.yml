@@ -5,7 +5,7 @@ jobs:
     parameters:
       img:
         type: string
-        decription: Machine image to use
+        description: Machine image to use
       set-envvar:
         type: boolean
         default: false
