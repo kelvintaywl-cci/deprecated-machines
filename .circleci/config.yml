@@ -1,32 +1,11 @@
 version: 2.1
 
-commands:
-  install-openvpn:
-    steps:
-      - run: |
-          # recommended so that we update the package lists
-          sudo apt-get update
-          sudo apt-get install -y openvpn-systemd-resolved
-
 jobs:
   build:
-    parameters:
-      img:
-        type: string
     machine:
-      image: << parameters.img >>
-    resource_class: medium
+      image: ubuntu-2004:2022.07.1
     steps:
-      - install-openvpn
- 
-workflows:
-  vpn:
-    jobs:
-      - build:
-          matrix:
-            parameters:
-              img:
-                - ubuntu-2204:2022.07.1
-                - ubuntu-2204:2022.04.2
-                - ubuntu-2204:2022.04.1
-
+      - checkout
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn-systemd-resolved
