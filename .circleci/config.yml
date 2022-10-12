@@ -23,9 +23,8 @@ commands:
 #       - add_ssh_keys:
 #           fingerprints:
 #             - "b3:1e:03:cf:29:8b:36:a6:87:09:d9:a0:62:c6:97:fd"
-#       - run: |
-#           ssh -V
-#           ls /home/circleci/.ssh/
+      - run: |
+          ssh -V
 #       - run: |
 #           cat /home/circleci/.ssh/config
 #           sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
@@ -75,7 +74,7 @@ jobs:
       - inspect
  
 workflows:
-  third-brownout:
+  oct-12-2022:
     jobs:
       - default
       - build:
