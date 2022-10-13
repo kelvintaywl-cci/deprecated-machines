@@ -20,9 +20,6 @@ commands:
           ls /home/circleci/.ssh/
   inspect:
     steps:
-#       - add_ssh_keys:
-#           fingerprints:
-#             - "b3:1e:03:cf:29:8b:36:a6:87:09:d9:a0:62:c6:97:fd"
       - run: |
           ssh -V
       - run: |
@@ -44,12 +41,24 @@ commands:
       - run: |
           lsb_release -a
           uname -r
+  install-sfdx:
+    steps:
+      - run: |
+          node -v
+          npm -v
+      - run: |
+          mkdir sfdx
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
+          ./sfdx/install
+          
+          sdfx commands
 
 jobs:
   default:
     machine: true
     steps:
       - inspect
+      - install-sfdx
   test-path:
     machine:
       image: ubuntu-2004:202201-02
@@ -74,6 +83,7 @@ jobs:
     resource_class: medium
     steps:
       - inspect
+      - install-sfdx
  
 workflows:
   oct-12-2022:
