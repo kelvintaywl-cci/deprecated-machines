@@ -8,6 +8,9 @@ jobs:
     steps:
       - run: |
           docker version
+      - run: |
+              docker context create builder
+              docker run --privileged --rm tonistiigi/binfmt --install all
 
 workflows:
   main:
