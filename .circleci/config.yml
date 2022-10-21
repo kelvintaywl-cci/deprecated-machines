@@ -9,6 +9,8 @@ jobs:
       - run: |
           docker version
       - run: |
+          docker image prune --all
+      - run: |
               docker context create builder
               docker run --privileged --rm tonistiigi/binfmt --install all
 
