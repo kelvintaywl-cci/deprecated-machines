@@ -84,7 +84,6 @@ jobs:
     resource_class: medium
     steps:
       - inspect
-      - install-sfdx
  
 workflows:
   oct-12-2022:
@@ -94,11 +93,5 @@ workflows:
           matrix:
             parameters:
               img:
-                # try again
-#                 - "ubuntu-2204:2022.04.1"
-#                 - "ubuntu-2004:2022.04.1"
-#                 - "ubuntu-1604:201903-01" # should fail
-#                 - "circleci/classic:201710-01" # should fail
-#                 - "ubuntu-2004:202111-02"
-                - "ubuntu-2004:202201-02"
+                - "ubuntu-2004:2022.10.1"
 
