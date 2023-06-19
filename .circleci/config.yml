@@ -88,11 +88,13 @@ jobs:
 workflows:
   jun-19-2023:
     jobs:
-      - default
       - build:
           matrix:
             parameters:
               img:
+                # See https://circleci.com/developer/machine/image/ubuntu-2004#image-tags
                 - "ubuntu-2004:202008-01"
                 - "ubuntu-2004:202104-01"
+                - "ubuntu-2004:202107-02"
+                - "ubuntu-2004:2023.04.2"
 
