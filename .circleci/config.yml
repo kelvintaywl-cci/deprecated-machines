@@ -2,7 +2,8 @@ version: 2.1
 
 commands:
   core_dump:
-    - run: ulimit -c unlimited
+    steps:
+      - run: ulimit -c unlimited
   upgrade_ssh:
     steps:
       - checkout
