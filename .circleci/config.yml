@@ -89,7 +89,7 @@ jobs:
       - core_dump
  
 workflows:
-  jun-19-2023:
+  jun-30-2023:
     jobs:
       - build:
           matrix:
@@ -99,5 +99,6 @@ workflows:
                 # - "ubuntu-2004:202008-01"
                 # - "ubuntu-2004:202104-01"
                 # - "ubuntu-2004:202107-02"
-                - "ubuntu-2204:2022.04.2"
+                - "ubuntu-2204:2023.04.2"
+                - "ubuntu-2004:2023.04.2"
 
