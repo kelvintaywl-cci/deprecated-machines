@@ -5,13 +5,17 @@ commands:
     steps:
       # see defaults
       - run: cat /etc/security/limits.conf
-      - run: ulimit -a
-      - run: ulimit -c
+      - run: |
+          ulimit -Sc
+          ulimit -Hc
       # set core files limit
       # NOTE: need to persist for shell sessions
-      - run: echo 'sudo sh -c "ulimit -c unlimited"' >> $BASH_ENV
-      - run: ulimit -c
-      - run: ulimit -a
+      - run: echo 'ulimit -c unlimited' >> $BASH_ENV
+      - run:
+          when: always
+          command: |
+            ulimit -Sc
+            ulimit -Hc
 
   upgrade_ssh:
     steps:
