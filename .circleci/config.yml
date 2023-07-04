@@ -3,12 +3,11 @@ version: 2.1
 commands:
   core_dump:
     steps:
-      # inspect all ulimit settings
       - run: ulimit -a
+      - run: ulimit -c
       # try to set core files limit
-      - run: |
-          ulimit -c unlimited
-          ulimit -c
+      - run: ulimit -c unlimited
+      - run: ulimit -c
       - run: ulimit -a
 
   upgrade_ssh:
