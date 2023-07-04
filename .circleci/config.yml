@@ -3,11 +3,11 @@ version: 2.1
 commands:
   core_dump:
     steps:
+      # inspect all ulimit settings
+      - run: ulimit -a
+      # try to set core files limit
       - run: ulimit -c unlimited
-      - run:
-          name: sudo ulimit
-          when: always
-          command: sudo sh -c "ulimit -c unlimited"
+
   upgrade_ssh:
     steps:
       - checkout
