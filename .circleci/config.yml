@@ -6,7 +6,9 @@ commands:
       # inspect all ulimit settings
       - run: ulimit -a
       # try to set core files limit
-      - run: ulimit -c unlimited
+      - run: |
+          ulimit -c unlimited
+          ulimit -c
       - run: ulimit -a
 
   upgrade_ssh:
