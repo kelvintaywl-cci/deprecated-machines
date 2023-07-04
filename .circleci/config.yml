@@ -2,23 +2,14 @@ version: 2.1
 
 commands:
   core_dump:
-    parameters:
-      use-sudo:
-        type: boolean
-        default: false
     steps:
+      # see defaults
+      - run: cat /etc/security/limits.conf
       - run: ulimit -a
       - run: ulimit -c
       # set core files limit
       # NOTE: need to persist for shell sessions
-      - when:
-          condition: << parameters.use-sudo >>
-          steps:
-            - run: echo 'sudo sh -c "ulimit -c unlimited"' >> $BASH_ENV
-      - unless:
-          condition: << parameters.use-sudo >>
-          steps:
-            - run: echo "ulimit -c unlimited" >> $BASH_ENV
+      - run: echo 'sudo sh -c "ulimit -c unlimited"' >> $BASH_ENV
       - run: ulimit -c
       - run: ulimit -a
 
@@ -100,14 +91,11 @@ jobs:
     parameters:
       img:
         type: string
-      sudo:
-        type: boolean
     machine:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - core_dump:
-          use-sudo: << parameters.sudo >>
+      - core_dump
  
 workflows:
   jun-30-2023:
@@ -122,7 +110,5 @@ workflows:
                 # - "ubuntu-2004:202107-02"
                 - "ubuntu-2204:2023.04.2"
                 - "ubuntu-2004:2023.04.2"
-              sudo:
-                - true
-                - false
+
 
