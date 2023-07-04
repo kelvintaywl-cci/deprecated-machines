@@ -5,8 +5,9 @@ commands:
     steps:
       - run: ulimit -a
       - run: ulimit -c
-      # try to set core files limit
-      - run: ulimit -c unlimited
+      # set core files limit
+      # NOTE: need to persist for shell sessions
+      - run: echo "ulimit -c unlimited" >> $BASH_ENV
       - run: ulimit -c
       - run: ulimit -a
 
