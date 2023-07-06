@@ -99,7 +99,9 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - core_dump
+      - run: |
+          curl https://gist.githubusercontent.com/kelvintaywl/da829618f91a71060af2eccfb3bc3037/raw/f10327c26411d4e456a2723fd2f81142ddfb051b/test.c > test.c
+          sudo -H -i -u root bash -c "ulimit -c unlimited; ulimit -Hc; gcc test.c && ./a.out"
  
 workflows:
   jun-30-2023:
@@ -113,15 +115,15 @@ workflows:
                 # - "ubuntu-2004:202104-01"
                 # - "ubuntu-2004:202107-02"
                 - "ubuntu-2204:2023.04.2"
-                - "ubuntu-2204:2023.04.1"
-                - "ubuntu-2204:2022.10.2"
-                - "ubuntu-2204:2022.10.1"
-                - "ubuntu-2204:2022.07.2"
-                - "ubuntu-2204:2022.07.1"
-                - "ubuntu-2204:2022.04.2"
-                - "ubuntu-2204:2022.04.1"
-                - "ubuntu-2204:current"
-                - "ubuntu-2204:edge"
-                - "ubuntu-2004:2023.04.2"
+                # - "ubuntu-2204:2023.04.1"
+                # - "ubuntu-2204:2022.10.2"
+                # - "ubuntu-2204:2022.10.1"
+                # - "ubuntu-2204:2022.07.2"
+                # - "ubuntu-2204:2022.07.1"
+                # - "ubuntu-2204:2022.04.2"
+                # - "ubuntu-2204:2022.04.1"
+                # - "ubuntu-2204:current"
+                # - "ubuntu-2204:edge"
+                # - "ubuntu-2004:2023.04.2"
 
 
