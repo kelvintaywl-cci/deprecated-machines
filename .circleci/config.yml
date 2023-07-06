@@ -13,8 +13,9 @@ jobs:
           curl https://gist.githubusercontent.com/kelvintaywl/da829618f91a71060af2eccfb3bc3037/raw/f10327c26411d4e456a2723fd2f81142ddfb051b/test.c > test.c
           
           sudo -H -i -u root bash -c "ulimit -c unlimited; ulimit -Hc; gcc /home/circleci/project/test.c && ./a.out"
-      - run: |
-          ls -l /var/lib/apport/coredump/
+      - run:
+          command: ls -l /var/lib/apport/coredump/
+          when: always
  
 workflows:
   jun-30-2023:
