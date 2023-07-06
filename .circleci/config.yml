@@ -1,96 +1,6 @@
 version: 2.1
 
-commands:
-  core_dump:
-    steps:
-      # see defaults
-      - run: cat /etc/security/limits.conf
-      - run: |
-          ulimit -Sc
-          ulimit -Hc
-      # set core files limit
-      # NOTE: need to persist for shell sessions
-      - run: echo 'ulimit -c unlimited' >> $BASH_ENV
-      - run:
-          when: always
-          command: |
-            ulimit -Sc
-            ulimit -Hc
-
-  upgrade_ssh:
-    steps:
-      - checkout
-      - run:
-          name: Install OpenSSH 8.9
-          command: |
-            sudo apt-get update
-            mkdir ~/tempdownload; 
-            cd ~/tempdownload; 
-            wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.9p1.tar.gz; 
-            tar zxvf openssh-8.9p1.tar.gz; 
-            cd openssh-8.9p1 && ./configure && make && sudo make install
-            # echo "export PATH='~/tempdownload/openssh-8.9p1:$PATH'" > $BASH_ENV
-      - run: |
-          which ssh
-          ssh -V
-          ls /home/circleci/.ssh/
-  inspect:
-    steps:
-      - run: |
-          ssh -V
-      - run: |
-          openssl version
-#       - run: |
-#           cat /home/circleci/.ssh/config
-#           sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config
-          
-#           sed 's/IdentitiesOnly no/IdentitiesOnly yes/1' /home/circleci/.ssh/config > /home/circleci/.ssh/config
-#           cat /home/circleci/.ssh/config
-#       - run: |
-#           # check SSH config validity
-#           sshd -t
-      - run: |
-          docker version
-          docker info
-      - run: |
-          docker-compose version
-      - run: |
-          lsb_release -a
-          uname -r
-  install-sfdx:
-    steps:
-      - run: |
-          node -v
-          npm -v
-      - run: |
-          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-          mkdir sfdx
-          tar xJf sfdx-linux-amd64.tar.xz -C sfdx --strip-components 1
-          ./sfdx/install
-          
-          sfdx commands
-
 jobs:
-  default:
-    machine: true
-    steps:
-      - inspect
-      - install-sfdx
-  test-path:
-    machine:
-      image: ubuntu-2004:202201-02
-    steps:
-      - run:
-          command: |
-            wget https://github.com/mikefarah/yq/releases/download/v4.25.1/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 ~/bin/yq
-            pwd
-            echo "---------------"
-            ls -laH $HOME/bin
-            
-            PATH=$HOME/bin:$PATH
-            echo "export PATH=$PATH" >> $BASH_ENV
-      - run:
-          command: printenv PATH
   build:
     parameters:
       img:
@@ -101,7 +11,10 @@ jobs:
     steps:
       - run: |
           curl https://gist.githubusercontent.com/kelvintaywl/da829618f91a71060af2eccfb3bc3037/raw/f10327c26411d4e456a2723fd2f81142ddfb051b/test.c > test.c
-          sudo -H -i -u root bash -c "ulimit -c unlimited; ulimit -Hc; gcc test.c && ./a.out"
+          
+          sudo -H -i -u root bash -c "ulimit -c unlimited; ulimit -Hc; gcc /home/circleci/project/test.c && ./a.out"
+      - run: |
+          ls -l /var/lib/apport/coredump/
  
 workflows:
   jun-30-2023:
