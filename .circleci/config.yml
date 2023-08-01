@@ -1,6 +1,11 @@
 version: 2.1
 
 commands:
+  install:
+    steps:
+      - run: |
+          sudo apt update -y
+          sudo apt install -y build-essential cmake clang clang-format esbuild shellcheck ninja-build hugo doxygen rapidjson-dev googletest libjavascriptcoregtk-4.0-dev
   upgrade_ssh:
     steps:
       - checkout
@@ -83,7 +88,8 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - inspect
+      # - inspect
+      - install
  
 workflows:
   jul-27-2023:
@@ -93,9 +99,10 @@ workflows:
             parameters:
               img:
                 # See https://circleci.com/developer/machine/image/ubuntu-2004#image-tags
-                - "ubuntu-2004:202008-01"
-                - "ubuntu-2004:202104-01"
-                - "ubuntu-2004:202107-02"
-                - "ubuntu-2004:2023.04.2"
-                - "ubuntu-2004:2023.07.1"
+                - "ubuntu-2204:2022.10.2"
+                # - "ubuntu-2004:202008-01"
+                # - "ubuntu-2004:202104-01"
+                # - "ubuntu-2004:202107-02"
+                # - "ubuntu-2004:2023.04.2"
+                # - "ubuntu-2004:2023.07.1"
 
