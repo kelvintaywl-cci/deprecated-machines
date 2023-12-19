@@ -7,8 +7,13 @@ commands:
           name: install Helm
           command: |
             curl -o helm-v3.13.3.tar.gz https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz
-            tar -zxvf helm-v3.0.0.tar.gz
-            ls -lah .
+            tar -zxvf helm-v3.13.3.tar.gz
+            sudo mv ./linux-amd64/helm /usr/local/go/bin
+      - run:
+          name: inspect Helm
+          command: |
+            which helm
+            helm version
   upgrade_ssh:
     steps:
       - checkout
