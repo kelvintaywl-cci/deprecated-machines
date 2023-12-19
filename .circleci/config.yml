@@ -1,6 +1,14 @@
 version: 2.1
 
 commands:
+  install-helm:
+    steps:
+      - run:
+          name: install Helm
+          command: |
+            curl -o helm-v3.13.3.tar.gz https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz
+            tar -zxvf helm-v3.0.0.tar.gz
+            ls -lah .
   upgrade_ssh:
     steps:
       - checkout
@@ -83,7 +91,7 @@ jobs:
       image: << parameters.img >>
     resource_class: medium
     steps:
-      - inspect
+      - install-helm
  
 workflows:
   jul-27-2023:
@@ -93,9 +101,9 @@ workflows:
             parameters:
               img:
                 # See https://circleci.com/developer/machine/image/ubuntu-2004#image-tags
-                - "ubuntu-2004:202008-01"
-                - "ubuntu-2004:202104-01"
-                - "ubuntu-2004:202107-02"
-                - "ubuntu-2004:2023.04.2"
+                # - "ubuntu-2004:202008-01"
+                # - "ubuntu-2004:202104-01"
+                # - "ubuntu-2004:202107-02"
+                # - "ubuntu-2004:2023.04.2"
                 - "ubuntu-2004:2023.07.1"
 
