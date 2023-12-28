@@ -21,6 +21,8 @@ commands:
           ls /home/circleci/.ssh/
   inspect:
     steps:
+      - checkout
+      - run: echo hello~
       - run: |
           ssh -V
       - run: |
