@@ -39,7 +39,10 @@ jobs:
 workflows:
   main:
     jobs:
-      - aaa
+      - aaa:
+          pre-steps: # steps to run before steps defined in the job bar
+            - run:
+                command: rm /home/circleci/.circlecirc
       - bbb:
           requires:
             - aaa
