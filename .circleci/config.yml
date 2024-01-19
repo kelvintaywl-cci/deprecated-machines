@@ -2,18 +2,26 @@ version: 2.1
 
 jobs:
   test-sudo:
+    parameters:
+      img:
+        type: string
     machine:
-      image: ubuntu-2004:2024.01.1
+      image: << parameters.img >>
     resource_class: medium
     steps:
       - run:
           name: test sudo
           command: |
-            sudo pwd
+            sudo bash -c 'sleep 5'
             
  
 workflows:
   jan-19-2024:
     jobs:
-      - test-sudo
+      - test-sudo:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2004:2024.01.1
+                - ubuntu-2204:2024.01.1
 
