@@ -1,12 +1,24 @@
 version: 2.1
 
 jobs:
-  build:
+  aaa:
+    docker:
+      - image: cimg/node:20.10
+    resource_class: medium
+    steps:
+      - run: head -c 1G </dev/urandom > my1GBfile.txt
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - project/my1GBfile.txt
+  bbb:
     machine:
       image: ubuntu-2204:2023.10.1
     resource_class: large
     steps:
       - run: cat /home/circleci/.circlerc
+      - attach_workspace:
+          at: /home/circleci
       - run:
           name: test echo
           command: |
@@ -23,3 +35,11 @@ jobs:
             # NOTE: i think this should be the below, for safety:
             #  docker pull "cypress/included:${VERSION}"
             docker pull cypress/included:"$VERSION"
+
+workflows:
+  main:
+    jobs:
+      - aaa
+      - bbb:
+          requires:
+            - aaa
