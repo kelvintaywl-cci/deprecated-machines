@@ -12,9 +12,11 @@ jobs:
       - run:
           name: test sudo
           command: |
-            sudo bash -c 'sleep 5'
-            
- 
+            # for Ubuntu 20.04, there is the warning printed:
+            #  sudo: /etc/sudoers.d/circleci:3 unknown defaults entry "rlimit_core"
+            # However, it does not cause any specific error; the command ran fine.
+            sudo apt update
+
 workflows:
   jan-19-2024:
     jobs:
@@ -24,4 +26,3 @@ workflows:
               img:
                 - ubuntu-2004:2024.01.1
                 - ubuntu-2204:2024.01.1
-
