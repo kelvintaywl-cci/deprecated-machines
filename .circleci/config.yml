@@ -86,12 +86,12 @@ jobs:
       - inspect
  
 workflows:
-  oct-12-2022:
+  feb-13-2024:
     jobs:
-      - default
       - build:
           matrix:
             parameters:
               img:
                 - "ubuntu-2004:2022.10.1"
+                - "ubuntu-2204:2022.10.2"
 
