@@ -82,9 +82,11 @@ jobs:
     parameters:
       img:
         type: string
+      rc:
+        type: string
     machine:
       image: << parameters.img >>
-    resource_class: medium
+    resource_class: << parameters.rc >>
     steps:
       - inspect
  
@@ -96,5 +98,7 @@ workflows:
             parameters:
               img:
                 # See https://circleci.com/developer/machine/image/ubuntu-2004#image-tags
-                - "ubuntu-2004:2023.07.1"
+                - "ubuntu-2004:current"
+              rc:
+                - "arm.medium"
 
