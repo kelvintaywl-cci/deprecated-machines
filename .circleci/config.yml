@@ -6,7 +6,7 @@ orbs:
 commands:
   install-gcp-cli:
     steps:
-      - gcp-cli/setup
+      - gcp-cli/install
       - run:
           name: scan
           # see https://cloud.google.com/artifact-analysis/docs/scan-os-on-demand
