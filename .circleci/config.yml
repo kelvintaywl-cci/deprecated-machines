@@ -8,6 +8,7 @@ jobs:
       - run:
           name: test
           command: |
+            set -x
             echo About to pull a Docker image
             echo About to pull a Docker image > /tmp/debug.log
             VERSION="13.7.1"
