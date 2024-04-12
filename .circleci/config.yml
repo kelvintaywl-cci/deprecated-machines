@@ -87,14 +87,18 @@ jobs:
     parameters:
       img:
         type: string
+      rc:
+        type: string
     machine:
       image: << parameters.img >>
-    resource_class: medium
+    resource_class: << parameters.rc >>
     steps:
       - inspect
  
 workflows:
-  mar-07-2024:
+  apr-12-2024:
     jobs:
-      - gcpcli
+      - build:
+          image: ubuntu-2004:2024.04.3
+          rc: arm.medium
 
