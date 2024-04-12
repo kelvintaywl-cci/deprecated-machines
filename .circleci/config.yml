@@ -99,6 +99,6 @@ workflows:
   apr-12-2024:
     jobs:
       - build:
-          image: ubuntu-2004:2024.04.3
+          img: ubuntu-2004:2024.04.3
           rc: arm.medium
 
